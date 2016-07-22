@@ -75,12 +75,12 @@ trait WebDav {
 	}
 
 	/**
-	 * @Given /^User "([^"]*)" moved file "([^"]*)" to "([^"]*)"$/
+	 * @Given /^User "([^"]*)" moved (file|folder|entry) "([^"]*)" to "([^"]*)"$/
 	 * @param string $user
 	 * @param string $fileSource
 	 * @param string $fileDestination
 	 */
-	public function userMovedFile($user, $fileSource, $fileDestination){
+	public function userMovedFile($user, $entry, $fileSource, $fileDestination){
 		$fullUrl = substr($this->baseUrl, 0, -4) . $this->davPath;
 		$headers['Destination'] = $fullUrl . $fileDestination;
 		$this->response = $this->makeDavRequest($user, "MOVE", $fileSource, $headers);
@@ -88,12 +88,12 @@ trait WebDav {
 	}
 
 	/**
-	 * @When /^User "([^"]*)" moves file "([^"]*)" to "([^"]*)"$/
+	 * @When /^User "([^"]*)" moves (file|folder|entry) "([^"]*)" to "([^"]*)"$/
 	 * @param string $user
 	 * @param string $fileSource
 	 * @param string $fileDestination
 	 */
-	public function userMovesFile($user, $fileSource, $fileDestination){
+	public function userMovesFile($user, $entry, $fileSource, $fileDestination){
 		$fullUrl = substr($this->baseUrl, 0, -4) . $this->davPath;
 		$headers['Destination'] = $fullUrl . $fileDestination;
 		$this->response = $this->makeDavRequest($user, "MOVE", $fileSource, $headers);
