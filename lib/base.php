@@ -757,37 +757,6 @@ class OC {
 			return;
 		}
 
-		$request = \OC::$server->getRequest();
-		$host = $request->getInsecureServerHost();
-		/**
-		 * if the host passed in headers isn't trusted
-		 * FIXME: Should not be in here at all :see_no_evil:
-		 */
-		if (!OC::$CLI
-			// overwritehost is always trusted, workaround to not have to make
-			// \OC\AppFramework\Http\Request::getOverwriteHost public
-			&& self::$server->getConfig()->getSystemValue('overwritehost') === ''
-			&& !\OC::$server->getTrustedDomainHelper()->isTrustedDomain($host)
-			&& self::$server->getConfig()->getSystemValue('installed', false)
-		) {
-			header('HTTP/1.1 400 Bad Request');
-			header('Status: 400 Bad Request');
-
-			\OC::$server->getLogger()->warning(
-					'Trusted domain error. "{remoteAddress}" tried to access using "{host}" as host.',
-					[
-						'app' => 'core',
-						'remoteAddress' => $request->getRemoteAddress(),
-						'host' => $host,
-					]
-			);
-
-			$tmpl = new OCP\Template('core', 'untrustedDomain', 'guest');
-			$tmpl->assign('domain', $host);
-			$tmpl->printPage();
-
-			exit();
-		}
 		\OC::$server->getEventLogger()->end('boot');
 	}
 
