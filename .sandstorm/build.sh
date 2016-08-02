@@ -15,3 +15,7 @@ rm -rf /var/apps
 ln -s /var/data /opt/app/data
 ln -s /var/config /opt/app/config
 ln -s /var/apps /opt/app/apps
+
+rm -f /var/core/js/oc.js
+rm -f /opt/app/core/js/oc.js
+ln -s /var/core/js/oc.js /opt/app/core/js/oc.js

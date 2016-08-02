@@ -35,6 +35,8 @@ if [ ! -e /opt/app/config/config.php ]; then
   mkdir -p /var/data
   mkdir -p /var/config
   mkdir -p /var/apps
+  mkdir -p /var/core/js
+  touch /var/core/js/oc.js
 
   # install nextcloud
   cd /opt/app
